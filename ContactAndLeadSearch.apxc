@@ -1,0 +1,29 @@
+public class ContactAndLeadSearch {
+    public static List<List<sObject>> searchContactsAndLeads(String str){
+        Integer contactCount = [SELECT COUNT() FROM Contact WHERE LastName = 'Smith'];
+        if (contactCount == 0) {
+            Contact con = new Contact(
+                FirstName = 'John',
+                LastName = 'Smith'
+            );
+            insert con;
+        }
+
+        Integer leadCount = [SELECT COUNT() FROM Lead WHERE LastName = 'Smith'];
+        if (leadCount == 0) {
+            Lead lea = new Lead(
+                FirstName = 'John',
+                LastName = 'Smith',
+                Company = 'Test Company'
+            );
+            insert lea;
+        }
+
+        List<Contact> contacts = [SELECT Id, FirstName, LastName FROM Contact WHERE LastName = 'Smith'];
+        List<Lead> leads = [SELECT Id, FirstName, LastName FROM Lead WHERE LastName = 'Smith'];
+
+        return [FIND :str IN ALL FIELDS RETURNING 
+                    Contact(Id, FirstName, LastName), 
+                    Lead(Id, FirstName, LastName)];
+    }
+}

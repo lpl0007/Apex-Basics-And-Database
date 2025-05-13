@@ -1,0 +1,10 @@
+public class ContactSearch {
+    public static List<Contact> searchForContacts(String last, String post){
+        List<Contact> contacts = [
+            SELECT Id, Name
+            FROM Contact
+            WHERE LastName = :last AND MailingPostalCode = :post
+        ];
+        return contacts;
+    }
+}

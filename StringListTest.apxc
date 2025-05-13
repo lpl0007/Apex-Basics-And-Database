@@ -1,0 +1,11 @@
+public class StringListTest {
+    public static List<String> generateStringList(Integer i){
+        List<String> tempList = new List<String>();
+        Integer n = 0;
+        for(; n != i; n++) {
+            String tempString = 'Test '  + n;
+            tempList.add(tempString);
+        }
+        return tempList;
+    }
+}
